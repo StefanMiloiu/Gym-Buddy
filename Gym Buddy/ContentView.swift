@@ -4,83 +4,65 @@
 //
 //  Created by Stefan Miloiu on 25.04.2024.
 //
-
 import SwiftUI
 import CoreData
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
-
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
         animation: .default)
     private var items: FetchedResults<Item>
-
+    
+    private var network = Network()
+    private var exercisesModel = NetworkExercise()
+    
+    @State var exercises: [Exercise] = []
+    @State var searchText = ""
+    @State var bodyPartSelected = ""
+    @State var targetSelected = ""
+    
+    private var filterApplied: Bool {
+        return !bodyPartSelected.isEmpty || !targetSelected.isEmpty
+    }
+    
     var body: some View {
         NavigationView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp!, formatter: itemFormatter)")
-                    } label: {
-                        Text(item.timestamp!, formatter: itemFormatter)
+            SearchView(searchText: $searchText, exercises: $exercises)
+                .navigationTitle("Exercises")
+                .toolbar{
+                    ToolbarItem(placement: .primaryAction) {
+                        NavigationLink(
+                            destination: AdvancedSearch(searchText: $searchText, exercises: $exercises, bodyPartSelected: $bodyPartSelected, targetSelected: $targetSelected)
+                                .navigationTitle(Text("Advanced Search"))
+                            ,label: {
+                                Image(systemName: "gearshape.2")
+                                    .font(.system(size: 20, weight: .bold))
+                                    .foregroundStyle(filterApplied ? .red : .gray)
+                                    .padding(7)
+                                    .cornerRadius(8)
+                                Text("Filter")
+                                    .font(.system(size: 20, weight: .bold))
+                                    .foregroundStyle(filterApplied ? .red : .gray)
+                            })
                     }
                 }
-                .onDelete(perform: deleteItems)
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
-            Text("Select an item")
+        }//: NavigationView
+        .onAppear {
+            exercises = exercisesModel.fetchExercises()
         }
-    }
+        .tint(.black)
+        .searchable(text: $searchText)
+        .autocorrectionDisabled()
+        .textInputAutocapitalization(.words)
+        .onSubmit(of: .search) {
+            exercises = exercisesModel.searchExercises(searchText: searchText)
 
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(context: viewContext)
-            newItem.timestamp = Date()
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { items[$0] }.forEach(viewContext.delete)
-
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
         }
     }
 }
 
-private let itemFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    formatter.timeStyle = .medium
-    return formatter
-}()
-
 #Preview {
-    ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    ContentView()
+        .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }
