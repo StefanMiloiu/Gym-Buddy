@@ -11,9 +11,12 @@ import SwiftUI
 struct SearchView: View {
     @Binding var searchText: String
     
-    @State private var networkEx = NetworkExercise()
+    /*
+     Networking...
+     @State private var networkEx = NetworkExercise()
+     */
     
-    @Binding var exercises: [Exercise]
+    @Binding var exercises: [ExerciseApi]
     var body: some View {
         VStack{
             List{
@@ -36,12 +39,11 @@ struct SearchView: View {
             .listStyle(.insetGrouped)
             .listRowSpacing(10)
         }//VStack
-        .tint(.black)
     }
 }
 
 struct SearchView_Previews: PreviewProvider {
     static var previews: some View {
-        SearchView(searchText: .constant(""), exercises: .constant([Exercise(bodyPart: "upper legs", equipment: "body weight", gifUrl: "https://v2.exercisedb.io/image/NnZC1Wzq6EscDG", id: "3562", name: "world greatest stretch", target: "hamstrings")]))
+        SearchView(searchText: .constant(""), exercises: .constant([ExerciseApi(bodyPart: "upper legs", equipment: "body weight", gifUrl: "https://v2.exercisedb.io/image/NnZC1Wzq6EscDG", id: "3562", name: "world greatest stretch", target: "hamstrings")]))
     }
 }

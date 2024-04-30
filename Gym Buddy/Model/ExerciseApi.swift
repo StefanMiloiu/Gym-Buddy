@@ -8,7 +8,7 @@
 import Foundation
 import SwiftUI
 
-struct Exercise: Codable, Hashable {
+struct ExerciseApi: Codable, Hashable {
     var bodyPart: String
     var equipment: String
     var gifUrl: String
