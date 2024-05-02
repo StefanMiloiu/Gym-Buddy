@@ -14,8 +14,11 @@ class ExercisesDB {
     
     func save(id: String, name: String, bodyPart: String, equipment: String, target: String, gifUrl: String) throws {
         let date = Date()
-        if self.findExerciseByIdAndDate(id: id, date: date.stripTime()) != nil {
-            throw NSError(domain: "Exercise already exists", code: 1, userInfo: nil)
+        let ex = self.findExercisesById(id: id)
+        if !ex.isEmpty {
+            if ex.filter({$0.date?.stripTime() == date.stripTime()}).count > 0 {
+                throw NSError(domain: "Exercise already exists", code: 1, userInfo: nil)
+            }
         }
         let exercise = Exercise(context: CoreDataProvider.shared.viewContext)
         exercise.id = id
@@ -65,7 +68,7 @@ class ExercisesDB {
             if let exercise = exercise {
                 CoreDataProvider.shared.viewContext.delete(exercise)
                 repsDB.deleteRepsByIdAndDate(id: id, date: date)
-                try exercise.save()
+                try CoreDataProvider.shared.viewContext.save()
             }
         } catch {
             let nsError = error as NSError
@@ -84,11 +87,33 @@ class ExercisesDB {
         }
     }
     
+    func findExercisesById(id: String) -> [Exercise] {
+        let request: NSFetchRequest<Exercise> = Exercise.fetchRequest()
+        request.predicate = NSPredicate(format: "id == %@", id)
+        do {
+            return try CoreDataProvider.shared.viewContext.fetch(request)
+        } catch {
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+        }
+    }
+    
     func findExerciseByIdAndDate(id: String, date: Date) -> Exercise? {
         let request: NSFetchRequest<Exercise> = Exercise.fetchRequest()
         request.predicate = NSPredicate(format: "id == %@ AND date == %@", id, date as NSDate)
         do {
             return try CoreDataProvider.shared.viewContext.fetch(request).first
+        } catch {
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+        }
+    }
+    
+    func deleteExercise(exercise: Exercise) {
+        CoreDataProvider.shared.viewContext.delete(exercise)
+        do {
+            repsDB.deleteRepsByIdAndDate(id: exercise.id!, date: exercise.date!)
+            try CoreDataProvider.shared.viewContext.save()
         } catch {
             let nsError = error as NSError
             fatalError("Unresolved error \(nsError), \(nsError.userInfo)")

@@ -10,10 +10,11 @@ import SDWebImageSwiftUI
 
 struct ExerciseDetailView: View {
     @Environment(\.presentationMode) var presentationMode
-    
     var exercise: ExerciseApi
     @State private var exercisesDB = ExercisesDB()
     @State private var alreadyExists = false
+    
+    @EnvironmentObject var exercisesVm: ExercisesViewModel
     var body: some View {
         VStack{
             Spacer()
@@ -44,6 +45,7 @@ struct ExerciseDetailView: View {
             Button {
                 do {
                     try exercisesDB.save(id: exercise.id, name: exercise.name, bodyPart: exercise.bodyPart, equipment: exercise.equipment, target: exercise.target, gifUrl: exercise.gifUrl)
+                    exercisesVm.fetchExercisesByDate(for: Date.now)
                 } catch {
                     alreadyExists.toggle()
                 }
@@ -67,4 +69,5 @@ struct ExerciseDetailView: View {
 
 #Preview {
     ExerciseDetailView(exercise: ExerciseApi(bodyPart: "Chest", equipment: "Barbell", gifUrl: "https://v2.exercisedb.io/image/A9daVLayGoP-Nz", id: "1256", name: "Bench Press", target: "Chest"))
+        .environmentObject(ExercisesViewModel())
 }

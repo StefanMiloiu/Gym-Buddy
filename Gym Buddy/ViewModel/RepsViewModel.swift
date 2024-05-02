@@ -21,22 +21,27 @@ class RepsViewModel: ObservableObject {
     }
     
     func fetchSortedReps() {
-        self.fetchReps()
+        fetchReps()
         reps = reps.sorted(by: { $0.exerciseDate! < $1.exerciseDate! })
     }
     
     func fetchRepsByDate(for date: Date) {
-        self.fetchSortedReps()
+        fetchSortedReps()
         reps = reps.filter({ $0.exerciseDate!.stripTime() == date.stripTime() })
     }
     
     func fetchRepsById(where id: String) {
-        self.fetchSortedReps()
+        fetchSortedReps()
         reps = reps.filter({ $0.exerciseId == id })
     }
     
-    func fetchRepsByExercise(for exercise: Exercise) -> [Reps]{
-        self.fetchSortedReps()
-        return reps.filter({ $0.exerciseId == exercise.id && $0.exerciseDate!.stripTime() == exercise.date!.stripTime() })
+    func fetchRepsByExercise(for exercise: Exercise) {
+        fetchSortedReps()
+        reps = reps.filter({ $0.exerciseId == exercise.id && $0.exerciseDate!.stripTime() == exercise.date!.stripTime() })
+    }
+    
+    func deleteRepsByIdAndDate(id: String, date: Date) {
+        repsRepository.deleteRepsByIdAndDate(id: id, date: date)
+        fetchSortedReps()
     }
 }

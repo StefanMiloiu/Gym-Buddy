@@ -11,6 +11,8 @@ struct ContentView: View {
     
     var body: some View {
         MainView()
+            .environmentObject(ExercisesViewModel())
+            .environmentObject(RepsViewModel())
     }
 }
 
@@ -20,4 +22,6 @@ struct ContentView: View {
 //        .onAppear {
 //            print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
 //        }
+        .environmentObject(ExercisesViewModel())
+        .environmentObject(RepsViewModel())
 }

@@ -37,7 +37,7 @@
                                 <rect key="frame" x="76" y="338.66666666666669" width="241" height="335.00000000000006"/>
                                 <color key="tintColor" systemColor="viewFlipsideBackgroundColor"/>
                                 <rect key="contentStretch" x="1" y="1" width="1" height="1"/>
-                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="medium" weight="heavy"/>
+                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="12" scale="small" weight="heavy"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Bcu-3y-fUS"/>

@@ -10,11 +10,10 @@ import CoreData
 
 class RepsDB {
     
-    func save(exerciseId: String, repetari: Int, weight: Double) {
-        let date = Date()
+    func save(exerciseId: String, repetari: Int, weight: Double, exerciseDate: Date) {
         let reps = Reps(context: CoreDataProvider.shared.viewContext)
         reps.exerciseId = exerciseId
-        reps.exerciseDate = date.stripTime()
+        reps.exerciseDate = exerciseDate
         reps.reps = NSDecimalNumber(value: repetari)
         reps.weight = weight
         do {
@@ -60,6 +59,7 @@ class RepsDB {
             let reps = try CoreDataProvider.shared.viewContext.fetch(request).first
             if reps != nil {
                 try CoreDataProvider.shared.viewContext.execute(deleteRequest)
+                try CoreDataProvider.shared.viewContext.save()
             }
         } catch {
             let nsError = error as NSError

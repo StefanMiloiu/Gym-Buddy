@@ -44,6 +44,8 @@ struct AdvancedSearch: View {
                             .pickerStyle(.automatic)
                             .onChange(of: bodyPartSelected) { newValue in
                                 bodyPartSelected = newValue
+                                targetSelected = ""
+                                equipmenSelected = ""
                             }
                         }//: HStack 1.0
                         
@@ -57,8 +59,8 @@ struct AdvancedSearch: View {
                                 }
                             }//: Picker
                             .pickerStyle(.automatic)
-                            .onChange(of: bodyPartSelected) { newValue in
-                                bodyPartSelected = newValue
+                            .onChange(of: targetSelected) { newValue in
+                                targetSelected = newValue
                             }
                         }//: HStack 1.1
                     }//: Section
@@ -69,6 +71,9 @@ struct AdvancedSearch: View {
                             ForEach(Array(Set(intactExercises.filter {$0.bodyPart == bodyPartSelected} .map { $0.equipment})).sorted(), id: \.self) {
                                 Text($0.capitalized)
                                     .tag($0)
+                            }
+                            .onChange(of: equipmenSelected) { newValue in
+                                equipmenSelected = newValue
                             }
                         }//: Picker
                     }

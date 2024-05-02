@@ -21,6 +21,11 @@ class ExercisesViewModel: ObservableObject {
         exercises = exerciseRepository.fetchExercises()
     }
     
+    private func fetchTodaysSortedExercises() {
+        fetchSortedExercises()
+        exercises = exercises.filter({ $0.date!.stripTime() == Date().stripTime() })
+    }
+    
     func fetchSortedExercises() {
         self.fetchExercises()
         exercises = exercises.sorted(by: { $0.date! < $1.date! })
@@ -31,9 +36,10 @@ class ExercisesViewModel: ObservableObject {
         exercises = exercises.filter({ $0.date!.stripTime() == date.stripTime() })
     }
     
-    func deleteExerciseById(id: String, date: Date) {
-        exerciseRepository.deleteExerciseByIdAndDate(id: id, date: date)
-        fetchExercises()
+    func deleteExerciseById(exercise: Exercise) {
+        let date = exercise.date!
+        exerciseRepository.deleteExercise(exercise: exercise)
+        fetchExercisesByDate(for: date)
     }
-    
+
 }
