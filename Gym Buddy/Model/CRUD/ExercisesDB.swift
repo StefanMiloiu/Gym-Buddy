@@ -13,7 +13,7 @@ class ExercisesDB {
     private let repsDB = RepsDB()
     
     func save(id: String, name: String, bodyPart: String, equipment: String, target: String, gifUrl: String) throws {
-        let date = Date()
+        let date = Date.now
         let ex = self.findExercisesById(id: id)
         if !ex.isEmpty {
             if ex.filter({$0.date?.stripTime() == date.stripTime()}).count > 0 {
@@ -70,6 +70,19 @@ class ExercisesDB {
                 repsDB.deleteRepsByIdAndDate(id: id, date: date)
                 try CoreDataProvider.shared.viewContext.save()
             }
+        } catch {
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+        }
+    }
+    
+    func deleteHistoryExercises(exercises: [Exercise]) {
+        for exercise in exercises {
+            CoreDataProvider.shared.viewContext.delete(exercise)
+            repsDB.deleteRepsByIdAndDate(id: exercise.id!, date: exercise.date!)
+        }
+        do {
+            try CoreDataProvider.shared.viewContext.save()
         } catch {
             let nsError = error as NSError
             fatalError("Unresolved error \(nsError), \(nsError.userInfo)")

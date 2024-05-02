@@ -114,7 +114,9 @@ struct HomeTabView: View {
                                 }
                             }, secondaryButton: .cancel())
                         default:
-                            return Alert(title: Text("Empty fields!"), message: Text("Please fill in all the fields").fontWeight(.bold), dismissButton: .default(Text("OK")))
+                            return Alert(title: Text("Empty fields!"),
+                                         message: Text("Please fill in all the fields")
+                                        .fontWeight(.bold), dismissButton: .default(Text("OK")))
                         }
                     }
                     .padding(.bottom, 30)
@@ -143,6 +145,7 @@ struct HomeTabView: View {
         .sheet(isPresented: $datePickerIsActive) {
             DatePickerView(date: $date, isActive: $datePickerIsActive)
                 .environmentObject(exerciseViewModel)
+                .environmentObject(repsViewModel)
                 .presentationCompactAdaptation(horizontal: .fullScreenCover, vertical: .popover)
                 .presentationDragIndicator(.visible)
         }

@@ -10,6 +10,8 @@ import SwiftUI
 
 struct DatePickerView: View {
     @EnvironmentObject var exerciseViewModel: ExercisesViewModel
+    @EnvironmentObject var repsViewModel: RepsViewModel
+
     @Binding var date: Date
     @Binding var isActive: Bool
 
@@ -21,6 +23,7 @@ struct DatePickerView: View {
                 .onChange(of: date) { newDate in
                     date = newDate
                     exerciseViewModel.fetchExercisesByDate(for: newDate)
+                    repsViewModel.fetchRepsByDate(for: newDate)
                     isActive = false
                 }
                 .onAppear {

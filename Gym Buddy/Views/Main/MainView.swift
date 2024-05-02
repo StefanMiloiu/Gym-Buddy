@@ -16,8 +16,10 @@ struct MainView: View {
     @EnvironmentObject var exercisesViewModel: ExercisesViewModel
     @EnvironmentObject var repsViewModel: RepsViewModel
     
+    @State var selectedTab = 0
+    
     var body: some View {
-        TabView {
+        TabView(selection: $selectedTab) {
             HomeTabView(date: $date)
                 .tabItem {
                     if date.stripTime() == Date.now.stripTime(){
@@ -26,6 +28,7 @@ struct MainView: View {
                         Label("Old workout", systemImage: "viewfinder")
                     }
                 }
+                .tag(0)
                 .environmentObject(exercisesViewModel)
                 .environmentObject(repsViewModel)
             if date.stripTime() == Date.now.stripTime(){
@@ -35,7 +38,13 @@ struct MainView: View {
                     .tabItem {
                         Label("Search", systemImage: "magnifyingglass")
                     }
+                    .tag(1)
             }
+            HistoryView(tabSelection: $selectedTab, date: $date)
+                .tabItem {
+                    Label("History", systemImage: "clock")
+                }
+                .tag(2)
         }
     }
 }
