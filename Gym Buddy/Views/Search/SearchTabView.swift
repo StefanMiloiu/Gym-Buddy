@@ -56,11 +56,15 @@ struct SearchTabView: View {
         }//: NavigationView
         .onChange(of: searchText) { value in
             if searchText.isEmpty {
-                exercises = LocalFetch.shared.fetchExercises()
+                exercises = LocalFetch.shared.fetchExercises().shuffled()
+            } else {
+                exercises = LocalFetch.shared.searchExercises(searchText: searchText)
             }
         }
         .onAppear {
-            exercises = LocalFetch.shared.fetchExercises()
+            if exercises.isEmpty {
+                exercises = LocalFetch.shared.fetchExercises().shuffled()
+            }
         }
         .searchable(text: $searchText)
         .autocorrectionDisabled()
