@@ -20,7 +20,7 @@ struct MainView: View {
     
     var body: some View {
         TabView(selection: $selectedTab) {
-            HomeTabView(date: $date)
+            HomeTabView(date: $date, selectedTab: $selectedTab)
                 .tabItem {
                     if date.stripTime() == Date.now.stripTime(){
                         Label("Home", systemImage: "house")
@@ -41,6 +41,8 @@ struct MainView: View {
                     .tag(1)
             }
             HistoryView(tabSelection: $selectedTab, date: $date)
+                .environmentObject(exercisesViewModel)
+                .environmentObject(repsViewModel)
                 .tabItem {
                     Label("History", systemImage: "clock")
                 }

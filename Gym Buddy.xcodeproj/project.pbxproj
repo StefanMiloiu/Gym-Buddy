@@ -37,6 +37,9 @@
 		8E7B01D42BE25FD1009A1D97 /* DatePickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7B01D32BE25FD1009A1D97 /* DatePickerView.swift */; };
 		8E7B01D62BE25FE1009A1D97 /* CompactDatePicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7B01D52BE25FE1009A1D97 /* CompactDatePicker.swift */; };
 		8E7B01D92BE260C6009A1D97 /* SuggestionsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E7B01D82BE260C6009A1D97 /* SuggestionsView.swift */; };
+		8E98750E2BE4CFEF000AAB67 /* ImportSuggestionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E98750D2BE4CFEF000AAB67 /* ImportSuggestionView.swift */; };
+		8E9875102BE4DBCB000AAB67 /* HistoryExerciseCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E98750F2BE4DBCB000AAB67 /* HistoryExerciseCard.swift */; };
+		8E9875122BE4DC7E000AAB67 /* CompactHistoryExerciseCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9875112BE4DC7E000AAB67 /* CompactHistoryExerciseCard.swift */; };
 		8E9FFF9A2BDAD1E300D4211E /* CustomExerciseView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9FFF992BDAD1E300D4211E /* CustomExerciseView.swift */; };
 		8E9FFF9D2BDAD75300D4211E /* ExerciseDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E9FFF9C2BDAD75300D4211E /* ExerciseDetailView.swift */; };
 		8E9FFF9E2BDADF2A00D4211E /* AdvancedSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E706CD92BDA487500C83A46 /* AdvancedSearch.swift */; };
@@ -101,6 +104,9 @@
 		8E7B01D32BE25FD1009A1D97 /* DatePickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickerView.swift; sourceTree = "<group>"; };
 		8E7B01D52BE25FE1009A1D97 /* CompactDatePicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactDatePicker.swift; sourceTree = "<group>"; };
 		8E7B01D82BE260C6009A1D97 /* SuggestionsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SuggestionsView.swift; sourceTree = "<group>"; };
+		8E98750D2BE4CFEF000AAB67 /* ImportSuggestionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportSuggestionView.swift; sourceTree = "<group>"; };
+		8E98750F2BE4DBCB000AAB67 /* HistoryExerciseCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryExerciseCard.swift; sourceTree = "<group>"; };
+		8E9875112BE4DC7E000AAB67 /* CompactHistoryExerciseCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompactHistoryExerciseCard.swift; sourceTree = "<group>"; };
 		8E9FFF992BDAD1E300D4211E /* CustomExerciseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomExerciseView.swift; sourceTree = "<group>"; };
 		8E9FFF9C2BDAD75300D4211E /* ExerciseDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExerciseDetailView.swift; sourceTree = "<group>"; };
 		8E9FFF9F2BDAE16500D4211E /* NetworkExercise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkExercise.swift; sourceTree = "<group>"; };
@@ -153,6 +159,8 @@
 				8E45D57D2BE3A6F800571878 /* HistoryView.swift */,
 				8E00C70B2BE418E40096A7B7 /* ImportFromHistoryButton.swift */,
 				8E00C70D2BE4191B0096A7B7 /* RemoveFromHistoryButton.swift */,
+				8E98750F2BE4DBCB000AAB67 /* HistoryExerciseCard.swift */,
+				8E9875112BE4DC7E000AAB67 /* CompactHistoryExerciseCard.swift */,
 			);
 			path = History;
 			sourceTree = "<group>";
@@ -285,6 +293,7 @@
 			isa = PBXGroup;
 			children = (
 				8E7B01D82BE260C6009A1D97 /* SuggestionsView.swift */,
+				8E98750D2BE4CFEF000AAB67 /* ImportSuggestionView.swift */,
 			);
 			path = ZeroExercisesView;
 			sourceTree = "<group>";
@@ -485,6 +494,7 @@
 				8ED58C8A2BDE2EAC008611FC /* AddRepsAndWeightButton.swift in Sources */,
 				8E7B01D62BE25FE1009A1D97 /* CompactDatePicker.swift in Sources */,
 				8E706CD52BDA459300C83A46 /* ContentView.swift in Sources */,
+				8E98750E2BE4CFEF000AAB67 /* ImportSuggestionView.swift in Sources */,
 				8E9FFFA02BDAE16500D4211E /* NetworkExercise.swift in Sources */,
 				8ED58C932BDE4906008611FC /* RepsDB.swift in Sources */,
 				8ED58C8C2BDE3022008611FC /* EmptySearchView.swift in Sources */,
@@ -493,6 +503,7 @@
 				8ED58C912BDE4851008611FC /* ExercisesDB.swift in Sources */,
 				8E1E02502BDCE41200F5961F /* Utils.swift in Sources */,
 				8E706CD82BDA45E300C83A46 /* SearchView.swift in Sources */,
+				8E9875102BE4DBCB000AAB67 /* HistoryExerciseCard.swift in Sources */,
 				8E00C70E2BE4191B0096A7B7 /* RemoveFromHistoryButton.swift in Sources */,
 				8E706CA92BDA2BEC00C83A46 /* Gym_Buddy.xcdatamodeld in Sources */,
 				8E45D57E2BE3A6F800571878 /* HistoryView.swift in Sources */,
@@ -500,6 +511,7 @@
 				8E706CDE2BDA4BAC00C83A46 /* ExerciseApi.swift in Sources */,
 				8E7B01D12BE253A5009A1D97 /* CustomExerciseRepsView.swift in Sources */,
 				8E9FFF9E2BDADF2A00D4211E /* AdvancedSearch.swift in Sources */,
+				8E9875122BE4DC7E000AAB67 /* CompactHistoryExerciseCard.swift in Sources */,
 				8E00C70C2BE418E40096A7B7 /* ImportFromHistoryButton.swift in Sources */,
 				8E7B01D42BE25FD1009A1D97 /* DatePickerView.swift in Sources */,
 				8E4CF6682BE01428007EC904 /* RepsViewModel.swift in Sources */,
@@ -678,6 +690,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Gym-Buddy-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Gym Companion";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
@@ -688,11 +702,12 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.miloiu.Gym-Buddy";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -712,6 +727,8 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Gym-Buddy-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "Gym Companion";
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.sports";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
@@ -722,11 +739,12 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.miloiu.Gym-Buddy";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -747,6 +765,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.miloiu.Gym-BuddyTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -767,6 +789,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.miloiu.Gym-BuddyTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -786,6 +812,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.miloiu.Gym-BuddyUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -805,6 +835,10 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.miloiu.Gym-BuddyUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
+				SUPPORTS_XR_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

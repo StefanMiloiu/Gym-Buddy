@@ -44,7 +44,7 @@ class ExercisesViewModel: ObservableObject {
     
     func deleteExercisesFromHistory(exercises: [Exercise]) {
         exerciseRepository.deleteHistoryExercises(exercises: exercises)
-        fetchReversSortedExercises()
+        fetchSortedExercises()
     }
     
     func getAllBodyParts(exercises: [Exercise]) -> [String] {

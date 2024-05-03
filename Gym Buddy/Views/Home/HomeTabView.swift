@@ -38,6 +38,9 @@ struct HomeTabView: View {
     
     @EnvironmentObject var exerciseViewModel: ExercisesViewModel
     @EnvironmentObject var repsViewModel: RepsViewModel
+    
+    @Binding var selectedTab: Int
+    
     private func hideKeyboard() {
         UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
         isEditing = false
@@ -69,11 +72,13 @@ struct HomeTabView: View {
                         .bold()
                         .multilineTextAlignment(.center)
                 }
+                
                 Spacer()
-                Text("This app was made by Stefan Miloiu and has no commercial purpose. It is made to help you keep track of your exercises and reps and also improve my Swift skills. Enjoy!")
-                    .font(.footnote)
-                    .multilineTextAlignment(.center)
-                    .foregroundStyle(.gray.opacity(0.7))
+                ImportSuggestionView(selectedTab: $selectedTab)
+                    .padding(.top)
+                    .padding(.horizontal)
+                
+                Spacer()
             } else {
                 ScrollView {
                     ForEach(Array(exerciseViewModel.exercises.enumerated()), id: \.offset) { index, exercise in
@@ -154,7 +159,7 @@ struct HomeTabView: View {
 
 
 #Preview {
-    HomeTabView(date: .constant(Date.now))
+    HomeTabView(date: .constant(Date.now), selectedTab: .constant(0))
         .environment(\.managedObjectContext, CoreDataProvider.shared.viewContext)
         .environmentObject(ExercisesViewModel())
         .environmentObject(RepsViewModel())

@@ -37,8 +37,12 @@ struct DatePickerView: View {
                         .foregroundColor(.accentColor)
                         .frame(maxWidth: .infinity, alignment: .center) // Center the label horizontally
                 })
-                
+                Text("This app was made by Stefan Miloiu and has no commercial purpose. It is made to help you keep track of your exercises and reps and also improve my Swift skills. Enjoy!")
+                    .font(.footnote)
+                    .multilineTextAlignment(.center)
+                    .foregroundStyle(.gray.opacity(0.7))
             }
+            .listRowSeparator(.hidden)
         }
     }
 }

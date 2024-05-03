@@ -46,7 +46,6 @@ class LocalFetch {
     
     func searchAdvanced(bodyPart: String, target: String, equipmenet: String) -> [ExerciseApi] {
         let data = self.exercises
-        print(equipmenet)
         return data.filter({ bodyPart.isEmpty ? true : $0.bodyPart.lowercased().contains(bodyPart.lowercased())
             && target.isEmpty ? true : $0.target.lowercased().contains(target.lowercased())
             && equipmenet.isEmpty ? true : $0.equipment.lowercased().contains(equipmenet.lowercased())

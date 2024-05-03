@@ -16,21 +16,34 @@ struct HistoryView: View {
     @Binding var tabSelection: Int
     @Binding var date: Date
 
+    @State var compact: Bool = true
     //MARK: - Body
     var body: some View {
         ScrollView {
             VStack {
+                HStack{
+                    Text("History")
+                        .font(.title)
+                        .fontWeight(.bold)
+                        .padding()
+                    
+                    Button(action: {
+                        withAnimation {
+                            compact.toggle()
+                        }
+                    }, label: {
+                        Text(compact ? "Expand" : "Compact")
+                            .fontWeight(.medium)
+                            .frame(width: 150, height: 35)
+                            .background(Color.black)
+                            .foregroundColor(.white)
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
+                            .transition(.opacity)
+                    })
+                }
                 
-                Text("History")
-                    .font(.title)
-                    .fontWeight(.bold)
-                    .padding()
-                
-                ExtractedView(tabSelection: $tabSelection, date: $date)
+                History(tabSelection: $tabSelection, date: $date, compact: $compact)
             }//:VStack
-        }
-        .onAppear {
-            exerciseViewModel.fetchReversSortedExercises()
         }
     }
 }
@@ -41,7 +54,7 @@ struct HistoryView: View {
         .environmentObject(RepsViewModel())
 }
 
-struct ExtractedView: View {
+struct History: View {
     
     //MARK: - Properties
     @EnvironmentObject var exerciseViewModel: ExercisesViewModel
@@ -50,75 +63,48 @@ struct ExtractedView: View {
     @Binding var tabSelection: Int
     @Binding var date: Date
     
+    @Binding var compact: Bool
+    
     var body: some View {
         VStack {
-            let uniqueDates = Array(Set(exerciseViewModel.exercises.map({ $0.date!.stripTime()})))
+            let uniqueDates = Array(Set(exerciseViewModel.exercises.map({ $0.date?.stripTime() ?? Date()})))
             let uniqueSortedDates = uniqueDates.sorted(by: >)
             
             ForEach(uniqueSortedDates, id: \.self) { date in
                 Section {
-                    let exercisesByDate = exerciseViewModel.exercises.filter({ $0.date?.stripTime() == date })
-                    let bodyPartsByExercise = exerciseViewModel.getAllBodyPartsString(exercises: exercisesByDate)
-                    
                     Button(action: {
-                        print(date)
                         self.date = date
                         tabSelection = 0
                     }, label: {
-                        GroupBox("\(date.getCurrentDay(from: date))  -  \(bodyPartsByExercise)") {
-                            ScrollView (.horizontal) {
-                                HStack {
-                                    ForEach(exerciseViewModel.exercises.filter({ $0.date?.stripTime() == date }), id: \.self) { exercise in
-                                        GroupBox{
-                                            VStack {
-                                                Text("\(exercise.name!.capitalized)")
-                                                    .font(.title3)
-                                                    .padding(.top)
-                                                    .multilineTextAlignment(.center)
-                                                    .frame(width: 120, height: 80)
-                                                
-                                                AsyncImage(url: URL(string: exercise.gifUrl!)) { image in
-                                                    image
-                                                        .resizable()
-                                                        .clipShape(RoundedRectangle(cornerRadius: 20))
-                                                } placeholder: {
-                                                    ProgressView()
-                                                }
-                                                .frame(width: 90, height: 90)
-                                            }
-                                            .padding(10)
-                                        }
-                                        .padding(.vertical, 5)
-                                    }
-                                }
-                            }
-                            
-                            //MARK: - Import/Remove Buttons
-                            let exercises = exerciseViewModel.exercises.filter({ $0.date?.stripTime() == date })
-                            HStack{
-                                RemoveFromHistoryButton(exercises: exercises)
-                                    .environmentObject(exerciseViewModel)
-                                    .environmentObject(repsViewModel)
-                                Spacer()
-                                ImportFromHistoryButton(exercises: exercises)
-                                    .environmentObject(exerciseViewModel)
-                                    .environmentObject(repsViewModel)
-                            }//:HStack
+                        if compact {
+                            CompactHistoryExerciseCard(date: date)
+                                .environmentObject(exerciseViewModel)
+                                .environmentObject(repsViewModel)
+                                .transition(.opacity)
+                            /*.fade(duration: 0.5)*/
+                        } else {
+                            HistoryExerciseCard(date: date)
+                                .environmentObject(exerciseViewModel)
+                                .environmentObject(repsViewModel)
+                                .transition(.opacity)
                         }
                     })
                     .buttonStyle(.plain)
                     .padding(10)
                 } header: {
-                    Text("\(date.formatted(date: .abbreviated, time: .omitted))")
+                    let today = Date.now.stripTime() == date.stripTime()
+                    Text("\( today ? "Today" : date.formatted(date: .abbreviated, time: .omitted))")
                         .padding(.leading)
                         .frame(maxWidth: .infinity, alignment: .leading)
                         .padding(.bottom, -10)
                         .padding(.top, 10)
                         .fontWeight(.medium)
                         .foregroundStyle(.gray)
-                    
                 }//:Header
-            }
+            }//:ForEach
+        }
+        .onAppear {
+            exerciseViewModel.fetchSortedExercises()
         }
     }
 }
