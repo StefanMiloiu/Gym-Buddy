@@ -11,7 +11,7 @@ struct HistoryExerciseCard: View {
     
     @EnvironmentObject var exerciseViewModel: ExercisesViewModel
     @EnvironmentObject var repsViewModel: RepsViewModel
-    
+
     let date: Date
     
     
