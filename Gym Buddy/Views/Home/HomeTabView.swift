@@ -125,6 +125,21 @@ struct HomeTabView: View {
                         }
                     }
                     .padding(.bottom, 30)
+                    if !isToday {
+                        Button(action: {
+                            date = Date.now
+                            exerciseViewModel.fetchExercisesByDate(for: date)
+                            repsViewModel.fetchRepsByDate(for: date)
+                        }) {
+                            HStack {
+                                Image(systemName: "eyes")
+                                Text("See today's exercises")
+                            }
+                            .padding()
+                            .background(.gray.opacity(0.1))
+                            .cornerRadius(10)
+                        }
+                    }
                 }
                 .scrollIndicators(.never)
                 .navigationTitle("Home")
